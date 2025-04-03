@@ -13,18 +13,32 @@ console.log('numero mail:', mailNumber);
 const endpoint = 'https://flynn.boolean.careers/exercises/api/random/mail';
 
 // Ciclo per eseguire le chiamate
-for (let i = 0; i < mailNumber; i++) {
-    axios
-        .get(endpoint)
-        .then((response) => {
-            /**
-             * La mail ottenuta dalla risposta dell'API.
-             * @type {string}
-             */
-            const mail = response.data.response;
+const generateMails = () => {
+    for (let i = 0; i < mailNumber; i++) {
+        axios
+            .get(endpoint)
+            .then((response) => {
+                /**
+                 * La mail ottenuta dalla risposta dell'API.
+                 * @type {string}
+                 */
+                const mail = response.data.response;
 
-            mailArray.push(mail);
+                mailArray.push(mail);
 
-            mailList.innerHTML += `<li>${mail}</li>`;
-        });
+                mailList.innerHTML += `<li class="list-group-item">${mail}</li>`;
+            });
+    };
 };
+
+// seleziono il bottone
+const button = document.getElementById('refresh-btn');
+/**
+ * function to refresh the list
+ * 
+ */
+button.addEventListener('click', () => {
+    mailList.innerHTML = '';
+    generateMails();
+});
+generateMails();
