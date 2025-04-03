@@ -11,3 +11,20 @@ console.log('numero mail:', mailNumber);
 
 // Endpoint dell'API per il recupero di una mail casuale.
 const endpoint = 'https://flynn.boolean.careers/exercises/api/random/mail';
+
+// Ciclo per eseguire le chiamate
+for (let i = 0; i < mailNumber; i++) {
+    axios
+        .get(endpoint)
+        .then((response) => {
+            /**
+             * La mail ottenuta dalla risposta dell'API.
+             * @type {string}
+             */
+            const mail = response.data.response;
+
+            mailArray.push(mail);
+
+            mailList.innerHTML += `<li>${mail}</li>`;
+        });
+};
